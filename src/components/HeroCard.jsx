@@ -1,40 +1,43 @@
 "use client";
 import styled from "@emotion/styled";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
-const HeroCard = ({ onClick }) => {
+const HeroCard = ({ onClick, data }) => {
   return (
-    <Card>
-      <Stack
-        alignItems="flex-end"
-        justifyContent="flex-end"
-        sx={{ width: "100%", height: "100%", padding: 3 }}
-        onClick={onClick}
-      >
-        <Stack spacing={1} sx={{ width: "60%", height: "fit-content" }}>
-          <Typography variant="h4">Judul Film</Typography>
-          <Typography variant="body1">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rerum modi
-            dicta deserunt natus praesentium magnam repudiandae molestiae
-            dolorum inventore id cupiditate, sapiente atque commodi, ipsam sunt
-            culpa quae voluptates reiciendis quia debitis eius doloremque,
-            reprehenderit rem. Culpa quaerat ipsa hic ullam quibusdam.
-            Repellendus pariatur earum nisi sint.
-          </Typography>
+    <Box
+      sx={{
+        minWidth: "70vw",
+        maxWidth: "70vw",
+        height: 300,
+        backgroundImage: `url('https://image.tmdb.org/t/p/original/${data?.backdrop_path}')`,
+        borderRadius: 4,
+        overflow: 'hidden',
+        backgroundSize: 'cover'
+      }}
+    >
+      <Card>
+        <Stack
+          alignItems="flex-start"
+          justifyContent="flex-end"
+          sx={{ width: "100%", height: "100%", padding: 3 }}
+          onClick={onClick}
+        >
+          <Stack spacing={1} sx={{ width: "60%", height: "fit-content" }}>
+            <Typography variant="h4">{data?.title}</Typography>
+            <Typography variant="body1">{data?.overview}</Typography>
+          </Stack>
         </Stack>
-      </Stack>
-    </Card>
+      </Card>
+    </Box>
   );
 };
 
 export default HeroCard;
 
 const Card = styled(Stack)`
-  background-color: red;
-  padding: 12px;
-  width: 70vw;
-  aspect-ratio: 3/1;
-  border-radius: 12px;
+  background-color: #00000090;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
