@@ -19,7 +19,7 @@ const page = () => {
 
   useEffect(() => {
     getMoviesByTitle(keyword).then(setSeriesList);
-  }, []);
+  }, [keyword]);
 
   return (
     <Stack spacing={2}>

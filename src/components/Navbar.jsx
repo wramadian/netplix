@@ -17,6 +17,7 @@ const Navbar = () => {
   const router = useRouter();
 
   const [openSearch, setOpenSearch] = useState(false);
+  const [searchKey, setSearchKey] = useState('');
 
   const { keyword, setKeyword } = useMovieStore();
 
@@ -25,7 +26,7 @@ const Navbar = () => {
   };
 
   const handleSetKeyword = (e) => {
-    setKeyword(e.target.value);
+    setSearchKey(e.target.value);
   };
 
   return (
@@ -59,10 +60,11 @@ const Navbar = () => {
           size="small"
           onBlur={handleOpenSearch}
           onChange={handleSetKeyword}
-          value={keyword}
+          value={searchKey}
           onKeyPress={(e) => {
             if (e.key === "Enter") {
               router.push("/search");
+              setKeyword(searchKey);
               handleOpenSearch();
             }
           }}
