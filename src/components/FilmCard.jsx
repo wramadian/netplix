@@ -1,24 +1,39 @@
-'use client'
-import styled from '@emotion/styled';
-import { Box } from '@mui/material';
+"use client";
+import styled from "@emotion/styled";
+import { Box, Typography } from "@mui/material";
 
-const FilmCard = ({ onClick }) => {
-  return <Card onClick={onClick}>FilmCard</Card>;
+const FilmCard = ({ onClick, data }) => {
+  return (
+    <Box
+      sx={{
+        minWidth: "10vw",
+        maxWidth: "10vw",
+        backgroundImage: `url('https://image.tmdb.org/t/p/original/${data?.poster_path}')`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        borderRadius: 2,
+        cursor: 'pointer',
+        overflow: 'hidden'
+      }}
+    >
+      <Card onClick={onClick}>
+        <Typography variant="body1" noWrap>
+          {data?.title}
+        </Typography>
+      </Card>
+    </Box>
+  );
 };
 
 export default FilmCard;
 
 const Card = styled(Box)`
-  background-color: red;
+  :hover {
+    background-color: #00000090;
+  }
   padding: 12px;
-  width: 10vw;
   aspect-ratio: 2/3;
-  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  :hover {
-    transform: scale(1.05);
-    cursor: pointer;
-  }
-`
+`;

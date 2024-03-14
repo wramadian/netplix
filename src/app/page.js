@@ -1,21 +1,40 @@
 "use client";
-import { FilmCard, FilmDetailDialog, HeroCard } from "@/components";
-import { Stack, Typography } from "@mui/material";
+import { HeroCard, MovieList } from "@/components";
+import useMovieStore from "@/states/movieState";
+import { getMovieList } from "@/utils/api";
+import { Stack } from "@mui/material";
+import { useEffect, useState } from "react";
 import useAlertStore from "../states/alertState";
 
 export default function Home() {
   const { handleOpenAlert } = useAlertStore();
+  const { handleSetSelectedMovie } = useMovieStore();
 
-  const handleClick = () => {
-    handleOpenAlert()
-  }
+  const [movieList, setMovieList] = useState({});
+
+  const handleClick = (movie) => {
+    handleOpenAlert();
+    handleSetSelectedMovie(movie);
+  };
+
+  useEffect(() => {
+    getMovieList().then(setMovieList);
+  }, []);
 
   return (
     <main>
       <Stack spacing={2}>
-        <HeroCard onClick={handleClick} />
-        <Typography variant="h5">Category</Typography>
-        <FilmCard onClick={handleClick} />
+        <Stack direction="row" gap={2}>
+          {movieList?.results?.slice(0, 5).map((movie) => {
+            return (
+              <HeroCard
+                data={movie}
+                key={movie.id}
+              />
+            );
+          })}
+        </Stack>
+        <MovieList movieList={movieList} handleClick={handleClick} />
       </Stack>
     </main>
   );
