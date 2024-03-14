@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 const useMovieStore = create((set) => ({
   selectedMovie: {},
+  keyword: '',
   handleSetSelectedMovie: (data) =>
     set((state) => ({
       ...state,
@@ -11,6 +12,11 @@ const useMovieStore = create((set) => ({
     set((state) => ({
       ...state,
       selectedMovie: {},
+    })),
+  setKeyword: (key) =>
+    set((state) => ({
+      ...state,
+      keyword: key,
     })),
 }));
 

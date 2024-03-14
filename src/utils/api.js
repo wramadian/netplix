@@ -40,3 +40,20 @@ export const getSeriesList = () => {
       .catch((error) => reject(error));
   });
 };
+
+export const getMoviesByTitle = (title) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${title}&include_adult=false&language=en-US&page=1`,
+      options
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => resolve(data))
+      .catch((error) => reject(error));
+  });
+};

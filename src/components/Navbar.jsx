@@ -1,16 +1,32 @@
 "use client";
+import useMovieStore from "@/states/movieState";
 import styled from "@emotion/styled";
 import { SearchRounded } from "@mui/icons-material";
-import { IconButton, Stack, TextField, Typography } from "@mui/material";
+import {
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Link from "next/link";
-import { useState } from 'react';
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const Navbar = () => {
+  const router = useRouter();
+
   const [openSearch, setOpenSearch] = useState(false);
 
+  const { keyword, setKeyword } = useMovieStore();
+
   const handleOpenSearch = () => {
-    setOpenSearch((prev) => !prev)
-  }
+    setOpenSearch((prev) => !prev);
+  };
+
+  const handleSetKeyword = (e) => {
+    setKeyword(e.target.value);
+  };
 
   return (
     <NavbarContainer
@@ -31,18 +47,38 @@ const Navbar = () => {
           <Typography>Movies</Typography>
         </Link>
       </Stack>
-      {
-        openSearch ?
-        <TextField 
-          placeholder='cari...'
-          sx={{border: '1px solid white'}}
-          size='small'
+      {openSearch ? (
+        <TextField
+          placeholder="cari..."
+          sx={{
+            border: "1px solid white",
+            ".MuiInputBase-input": {
+              color: "#E6E6E6",
+            },
+          }}
+          size="small"
           onBlur={handleOpenSearch}
-        /> :
+          onChange={handleSetKeyword}
+          value={keyword}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              router.push("/search");
+              handleOpenSearch();
+            }
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchRounded sx={{ color: "#E6E6E6" }} />
+              </InputAdornment>
+            ),
+          }}
+        />
+      ) : (
         <IconButton onClick={handleOpenSearch}>
           <SearchRounded sx={{ color: "#E6E6E6" }} />
         </IconButton>
-      }
+      )}
     </NavbarContainer>
   );
 };
