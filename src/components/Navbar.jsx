@@ -30,7 +30,6 @@ const Navbar = () => {
         <Link href="/movies">
           <Typography>Movies</Typography>
         </Link>
-        <Typography>Genre</Typography>
       </Stack>
       {
         openSearch ?
