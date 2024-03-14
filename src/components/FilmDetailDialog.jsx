@@ -17,6 +17,11 @@ const FilmDetailDialog = () => {
             <CloseRounded sx={{ color: "#E6E6E6" }} />
           </IconButton>
         </Stack>
+        <iframe
+          width="100%"
+          style={{ aspectRatio: '4/3'}}
+          src="https://www.youtube.com/embed/njX2bu-_Vw4"
+        ></iframe>
         <Typography variant="h5" color="#E6E6E6">
           {selectedMovie.title || selectedMovie.original_name}
         </Typography>
