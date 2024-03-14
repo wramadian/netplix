@@ -18,7 +18,7 @@ const FilmCard = ({ onClick, data }) => {
     >
       <Card onClick={onClick}>
         <Typography variant="body1" noWrap>
-          {data?.title}
+          {data?.title || data?.original_name}
         </Typography>
       </Card>
     </Box>
